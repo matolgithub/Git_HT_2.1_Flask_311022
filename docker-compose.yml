@@ -1,0 +1,27 @@
+version: "3.9"
+
+networks:
+  dev_network:
+
+services:
+  db:
+    image: postgres:latest
+    hostname: os.getenv("POSTGRES_HOST")
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: os.getenv("POSTGRES_USER")
+      POSTGRES_PASSWORD: os.getenv("POSTGRES_PASSWORD")
+      POSTGRES_DB: os.getenv("POSTGRES_DB")
+
+  app:
+    build:
+      context: .
+    environment:
+      PG_DSN: os.getenv("PG_DSN")
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - ./app:/app
