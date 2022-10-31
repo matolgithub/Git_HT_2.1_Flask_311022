@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+<h1>{{ text }}</h1>
+{% if main_string %}
+<h2>
+    String with {{ main_string }}!
+</h2>
+{% else %}
+<h2>
+    String without main_string!
+</h2>
+{% endif %}
+{% endblock %}
